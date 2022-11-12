@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Card, Row, Col, Statistic } from "antd";
+import { Typography } from "antd";
 import { getUserTransactions } from "../api/getUserTransactions";
 import classes from "./RebateSummary.module.css";
-import { useUserRebatesByMonth } from "../hooks/useUserRebatesByMonth"
+import { UserCard } from "./UserCard";
 
 const { Title } = Typography;
 
@@ -21,22 +21,4 @@ export function RebateSummary() {
             {users.map(user => <UserCard key={user.id} user={user} />)}
         </div>
     </section>;
-}
-
-function UserCard({ user }) {
-    const userRebatesByMonth = useUserRebatesByMonth(user);
-
-    if (!user) {
-        return null;
-    }
-
-    return <Card title={user.name} className={classes.userCard}>
-        <Row justify="space-between">
-            {userRebatesByMonth.map(({ month, rebateAmount }) =>
-                <Col key={month}>
-                    <Statistic title={month} value={rebateAmount} />
-                </Col>
-            )}
-        </Row>
-    </Card>
 }
